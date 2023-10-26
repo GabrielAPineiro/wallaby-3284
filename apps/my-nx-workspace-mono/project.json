@@ -1,0 +1,95 @@
+{
+  "name": "my-nx-workspace-mono",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "my-nx-workspace-mono",
+  "sourceRoot": "apps/my-nx-workspace-mono/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/my-nx-workspace-mono",
+        "index": "apps/my-nx-workspace-mono/src/index.html",
+        "main": "apps/my-nx-workspace-mono/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/my-nx-workspace-mono/tsconfig.app.json",
+        "assets": [
+          "apps/my-nx-workspace-mono/src/favicon.ico",
+          "apps/my-nx-workspace-mono/src/assets"
+        ],
+        "styles": ["apps/my-nx-workspace-mono/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "my-nx-workspace-mono:build:production"
+        },
+        "development": {
+          "browserTarget": "my-nx-workspace-mono:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "my-nx-workspace-mono:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/my-nx-workspace-mono/**/*.ts",
+          "apps/my-nx-workspace-mono/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/my-nx-workspace-mono/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  }
+}
