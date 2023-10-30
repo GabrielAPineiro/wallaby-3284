@@ -1,55 +1,133 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "npmScope": "exclaimer",
+  "affected": {
+    "defaultBase": "master"
+  },
+  "cli": {
+    "defaultCollection": "@exclaimer/workspace-plugin"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx-cloud",
+      "options": {
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e",
+          "build-storybook"
+        ],
+        "accessToken": "MGYwOTcxZTctYjNlYy00Y2U5LWE4ZjUtOGZjYmNjYjQxOGE1fHJlYWQtd3JpdGU="
+      }
+    }
+  },
   "targetDefaults": {
     "build": {
-      "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production"
+      ]
+    },
+    "test": {
+      "inputs": [
+        "default",
+        "^production",
+        "{workspaceRoot}/karma.conf.js",
+        "{workspaceRoot}/tools/karma/get-karma-config.js"
+      ]
     },
     "lint": {
-      "cache": true,
       "inputs": [
         "default",
         "{workspaceRoot}/.eslintrc.json",
         "{workspaceRoot}/.eslintignore",
-        "{workspaceRoot}/eslint.config.js"
+        "{workspaceRoot}/tools/eslint/get-eslint-config.js",
+        "{workspaceRoot}/.editorconfig"
       ]
     },
-    "test": {
-      "cache": true,
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
-    },
     "e2e": {
-      "cache": true
+      "inputs": [
+        "default",
+        "^production"
+      ]
+    },
+    "build-storybook": {
+      "inputs": [
+        "default",
+        "^storybookProduction",
+        "{workspaceRoot}/.storybook/**/*"
+      ]
+    },
+    "chromatic": {
+      "dependsOn": [
+        "build-storybook"
+      ],
+      "inputs": [
+        "default",
+        "^storybookProduction"
+      ]
     }
   },
   "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
     "production": [
       "default",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/**/*.md",
       "!{projectRoot}/tsconfig.spec.json",
-      "!{projectRoot}/jest.config.[jt]s",
-      "!{projectRoot}/src/test-setup.[jt]s",
-      "!{projectRoot}/test-setup.[jt]s",
+      "!{projectRoot}/karma.conf.js",
       "!{projectRoot}/.eslintrc.json",
-      "!{projectRoot}/eslint.config.js"
+      "!{projectRoot}/.storybook/**/*",
+      "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)"
+    ],
+    "storybookProduction": [
+      "default",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/karma.conf.js",
+      "!{projectRoot}/.eslintrc.json"
     ],
     "sharedGlobals": []
   },
   "generators": {
     "@nx/angular:application": {
-      "style": "css",
+      "style": "scss",
       "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "none"
+      "unitTestRunner": "karma",
+      "e2eTestRunner": "none",
+      "prefix": "excl",
+      "routing": true
     },
     "@nx/angular:library": {
       "linter": "eslint",
-      "unitTestRunner": "jest"
+      "unitTestRunner": "karma",
+      "prefix": "excl",
+      "buildable": true
     },
     "@nx/angular:component": {
-      "style": "css"
+      "style": "scss",
+      "changeDetection": "OnPush"
+    },
+    "@nx/angular:scam": {
+      "style": "scss",
+      "changeDetection": "OnPush",
+      "export": true,
+      "inlineScam": false
+    },
+    "@nx/angular:storybook-configuration": {
+      "configureCypress": false,
+      "generateCypressSpecs": false,
+      "generateStories": true
+    },
+    "@nx/angular:stories": {
+      "generateCypressSpecs": false
     }
   }
 }
