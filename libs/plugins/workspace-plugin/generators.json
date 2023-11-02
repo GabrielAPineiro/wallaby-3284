@@ -1,0 +1,23 @@
+{
+	"$schema": "http://json-schema.org/schema",
+	"name": "workspace-plugin",
+	"version": "0.0.1",
+	"generators": {
+		"library": {
+			"factory": "./src/generators/library/library",
+			"schema": "./src/generators/library/schema.json",
+			"x-type": "library",
+			"description": "Library generator"
+		},
+		"configuration-settings": {
+			"factory": "./src/generators/configuration-settings/generator",
+			"schema": "./src/generators/configuration-settings/schema.json",
+			"description": "configuration settings generator"
+		},
+		"component": {
+			"factory": "./src/generators/component/generator",
+			"schema": "./src/generators/component/schema.json",
+			"description": "Component generator"
+		}
+	}
+}

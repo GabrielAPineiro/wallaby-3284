@@ -1,0 +1,38 @@
+import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import { UntypedFormBuilder } from '@angular/forms';
+import type { TranslationKeys } from '@exclaimer/cloud-ui/i18n';
+import { I18N_TOKEN } from '@exclaimer/cloud-ui/i18n';
+import { TranslateService } from '@ngx-translate/core';
+
+@Component({
+	selector: 'configuration-<%= fileName %>',
+	templateUrl: './<%= fileName %>.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class <%= componentName %>Component implements OnInit {
+	@Output() public readonly save: EventEmitter<void> = new EventEmitter<void>();
+
+	@Input({ required: true }) public isGSuiteUser: boolean;
+
+	@Input({ required: true }) public formDirty: boolean;
+
+	public readonly i18n = this.i18nKeys.<%=underscore(fileName)%>;
+
+	public readonly helpLink = "";
+
+	public readonly formGroup = this.fb.group({ <%=noSpecialChars(fileName)%>: '' });
+
+	public constructor(
+		@Inject(I18N_TOKEN) public readonly i18nKeys: TranslationKeys,
+		private translate: TranslateService,
+		private fb: UntypedFormBuilder,
+	) {}
+
+	public ngOnInit(): void {
+		// TODO
+	}
+
+	public saveForm(): void {
+		this.save.emit();
+	}
+}

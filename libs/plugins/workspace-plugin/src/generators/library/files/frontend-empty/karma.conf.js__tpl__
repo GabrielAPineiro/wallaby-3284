@@ -1,0 +1,2 @@
+const getKarmaConfig = require('<%= offsetFromRoot %>tools/karma/get-karma-config');
+module.exports = getKarmaConfig(__dirname);

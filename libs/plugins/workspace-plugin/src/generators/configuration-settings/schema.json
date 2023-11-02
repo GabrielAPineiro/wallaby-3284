@@ -1,0 +1,24 @@
+{
+	"$schema": "http://json-schema.org/schema",
+	"$id": "SettingsGenerator",
+	"title": "Generate a new Settings Component",
+	"type": "object",
+	"properties": {
+		"name": {
+			"type": "string",
+			"description": "Name of the component",
+			"$default": {
+				"$source": "argv",
+				"index": 0
+			},
+			"x-prompt": "What name would you like to use for the file system?"
+		},
+		"configurationArea": {
+			"type": "string",
+			"description": "e.g. configuration-feature-user-data",
+			"x-dropdown": "projects",
+			"x-prompt": "What project?"
+		}
+	},
+	"required": ["name", "configurationArea"]
+}

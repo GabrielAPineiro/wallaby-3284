@@ -1,0 +1,19 @@
+/* eslint-disable @typescript-eslint/await-thenable */
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
+import { <%= componentName %>Component } from './<%= fileName %>.component';
+import { <%= componentName %>Module } from './<%= fileName %>.module';
+
+type ComponentStoryObj = StoryObj<Partial<<%= componentName %>Component>>;
+type ComponentMeta = Meta<Partial<<%= componentName %>Component>>;
+
+export default {
+	component: <%= componentName %>Component,
+	decorators: [
+		moduleMetadata({
+			imports: [<%= componentName %>Module, NoopAnimationsModule],
+		}),
+	],
+} as ComponentMeta;
+
+export const Default: ComponentStoryObj = {};

@@ -1,0 +1,4 @@
+export { FeatureFlagDirective, FeatureFlagDirectiveModule } from './directive/feature-flags';
+export { FeatureFlagsResolver } from './resolver/feature-flags';
+export { FeatureFlags, FeatureFlagsFacade, FeatureFlagsState } from './state/feature-flags';
+export { <%= normalizedDomain %>Facade, <%= normalizedDomain %>Selectors, <%= normalizedDomain %>State } from './state/<%= domain %>';

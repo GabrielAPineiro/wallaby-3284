@@ -1,0 +1,45 @@
+import { FeatureFlags, FeatureFlagsStateModel } from './feature-flags';
+import { FeatureFlagsSelectors } from './feature-flags.selectors';
+
+describe('FeatureFlagsSelectors', () => {
+	const state = { trueFlag: true, falseFlag: false, prodFlag: 'productionMode' } as unknown as FeatureFlagsStateModel;
+
+	it('featureFlags should return correct result', () => {
+		const result = FeatureFlagsSelectors.featureFlags(state);
+		expect(result).toEqual(state);
+	});
+
+	[
+		{ flag: 'trueFlag', expectedDev: true, expectedProd: true },
+		{ flag: 'falseFlag', expectedDev: false, expectedProd: false },
+		{ flag: 'prodFlag', expectedDev: true, expectedProd: false },
+	].forEach(({ flag, expectedDev, expectedProd }) => {
+		it(`isEnabled(${flag}) should return correct result (dev)`, () => {
+			const result = FeatureFlagsSelectors.isEnabled(flag as FeatureFlags)(state, false);
+			expect(result)
+				.withContext(`If feature flag: ${flag} is true then isEnabled should return ${String(expectedDev)}`)
+				.toEqual(expectedDev);
+		});
+
+		it(`isEnabled(${flag}) should return correct result (prod)`, () => {
+			const result = FeatureFlagsSelectors.isEnabled(flag as FeatureFlags)(state, true);
+			expect(result)
+				.withContext(`If feature flag: ${flag} is true then isEnabled should return ${String(expectedDev)}`)
+				.toEqual(expectedProd);
+		});
+
+		it(`isDisabled(${flag}) should return correct result (dev)`, () => {
+			const result = FeatureFlagsSelectors.isDisabled(flag as FeatureFlags)(state, false);
+			expect(result)
+				.withContext(`If feature flag: ${flag} is false then isDisabled should return ${String(!expectedDev)}`)
+				.toEqual(!expectedDev);
+		});
+
+		it(`isDisabled(${flag}) should return correct result (prod)`, () => {
+			const result = FeatureFlagsSelectors.isDisabled(flag as FeatureFlags)(state, true);
+			expect(result)
+				.withContext(`If feature flag: ${flag} is false then isDisabled should return ${String(!expectedDev)}`)
+				.toEqual(!expectedProd);
+		});
+	});
+});

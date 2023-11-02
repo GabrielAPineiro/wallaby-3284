@@ -1,0 +1,2 @@
+export * from './lib';
+export { <%= normalizedDomain %>DataAccessModule } from './<%= domain %>-data-access.module';

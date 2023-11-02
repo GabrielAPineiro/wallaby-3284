@@ -1,0 +1,30 @@
+{
+	"version": 2,
+	"outputCapture": "direct-nodejs",
+	"$schema": "http://json-schema.org/schema",
+	"title": "POEditor import executor",
+	"description": "",
+	"type": "object",
+	"properties": {
+		"outputPath": {
+			"type": "string",
+			"description": "POEditor translations output path"
+		},
+		"project": {
+			"oneOf": [
+				{
+					"type": "string"
+				},
+				{
+					"type": "number"
+				}
+			],
+			"description": "POEditor project name or id"
+		},
+		"apiKey": {
+			"type": "string",
+			"description": "POEditor API Key"
+		}
+	},
+	"required": ["outputPath", "project"]
+}

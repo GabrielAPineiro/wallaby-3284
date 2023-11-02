@@ -1,0 +1,3 @@
+<% if(includeHarness) { %>export { <%= componentName %>Harness } from './testing'<% } %>
+export { <%= componentName %>Component } from './<%= fileName %>.component';
+export { <%= componentName %>Module } from './<%= fileName %>.module';

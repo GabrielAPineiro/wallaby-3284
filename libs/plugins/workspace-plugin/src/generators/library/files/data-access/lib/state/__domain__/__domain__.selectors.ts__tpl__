@@ -1,0 +1,7 @@
+import { Selector } from '@ngxs/store';
+import type { <%= normalizedDomain %>StateModel } from './<%= domain %>.types';
+import { <%= uppercaseDomain %>_STATE_TOKEN } from './<%= domain %>.types';
+
+export class <%= normalizedDomain %>Selectors {
+	
+}

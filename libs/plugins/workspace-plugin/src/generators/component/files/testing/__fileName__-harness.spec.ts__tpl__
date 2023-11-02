@@ -1,0 +1,37 @@
+import { HarnessLoader } from '@angular/cdk/testing';
+import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { <%= componentName %>Component } from '../<%= fileName %>.component';
+import { <%= componentName %>Harness } from './<%= fileName %>-harness';
+
+@Component({
+	template: `
+		<<%= fileName %>></<%= fileName %>>
+	`,
+})
+class <%= componentName %>TestComponent {
+}
+
+describe('<%= componentName %>Harness', () => {
+	let fixture: ComponentFixture<<%= componentName %>TestComponent>;
+	let loader: HarnessLoader;
+
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			imports: [NoopAnimationsModule],
+			declarations: [<%= componentName %>Component, <%= componentName %>TestComponent],
+		}).compileComponents();
+	});
+
+	beforeEach(() => {
+		fixture = TestBed.createComponent(<%= componentName %>TestComponent);
+		loader = TestbedHarnessEnvironment.loader(fixture);
+	});
+
+	it('should load all harnesses', async () => {
+		const elements = await loader.getAllHarnesses(<%= componentName %>Harness);
+		expect(elements.length).toBe(1);
+	});
+});

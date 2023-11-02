@@ -1,0 +1,24 @@
+import { Injectable } from '@angular/core';
+import { IFeatureFlagsFacade } from '@exclaimer/shared/common';
+import { Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { FeatureFlags, FeatureFlagsStateModel } from './feature-flags';
+import { LoadFeatureFlags } from './feature-flags.actions';
+import { FeatureFlagsSelectors } from './feature-flags.selectors';
+
+@Injectable()
+export class FeatureFlagsFacade implements IFeatureFlagsFacade<FeatureFlags> {
+	public readonly featureFlags$: Observable<FeatureFlagsStateModel> = this.store.select<FeatureFlagsStateModel>(FeatureFlagsSelectors.featureFlags);
+
+	public constructor(private store: Store) {}
+
+	public isEnabled$ = (featureFlag: FeatureFlags): Observable<boolean> => this.store.select(FeatureFlagsSelectors.isEnabled(featureFlag));
+
+	public isDisabled$ = (featureFlag: FeatureFlags): Observable<boolean> => this.store.select(FeatureFlagsSelectors.isDisabled(featureFlag));
+
+	public isEnabled = (featureFlag: FeatureFlags): boolean => this.store.selectSnapshot(FeatureFlagsSelectors.isEnabled(featureFlag));
+
+	public isDisabled = (featureFlag: FeatureFlags): boolean => this.store.selectSnapshot(FeatureFlagsSelectors.isDisabled(featureFlag));
+
+	public loadFeatureFlags = (): Observable<unknown> => this.store.dispatch(new LoadFeatureFlags());
+}

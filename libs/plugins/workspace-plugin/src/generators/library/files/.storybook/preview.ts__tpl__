@@ -1,0 +1,9 @@
+import { defaultDecorators, defaultParameters } from '@exclaimer/shared/storybook';
+import { Preview } from '@storybook/angular';
+
+const preview: Preview = {
+	parameters: { ...defaultParameters },
+	decorators: [...defaultDecorators],
+};
+
+export default preview;

@@ -1,0 +1,2 @@
+const getEslintConfig = require('<%= offsetFromRoot %>tools/eslint/get-eslint-config');
+module.exports = getEslintConfig(__dirname, '<%= domain %>');

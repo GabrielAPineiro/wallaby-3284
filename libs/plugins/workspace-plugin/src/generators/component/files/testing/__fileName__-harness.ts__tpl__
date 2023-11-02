@@ -1,0 +1,10 @@
+import { BaseHarnessFilters, ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+
+export class <%= componentName %>Harness extends ComponentHarness {
+	public static hostSelector = '<%= fileName %>';
+
+	public static with(options: BaseHarnessFilters = {}): HarnessPredicate<<%= componentName %>Harness> {
+		return new HarnessPredicate(<%= componentName %>Harness, options);
+	}
+}
+

@@ -1,0 +1,5 @@
+export * from './<%= domain %>.actions';
+export * from './<%= domain %>.facade';
+export * from './<%= domain %>.selectors';
+export * from './<%= domain %>.state';
+export * from './<%= domain %>.types';

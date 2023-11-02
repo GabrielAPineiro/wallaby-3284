@@ -1,0 +1,22 @@
+import { StorybookConfig } from '@storybook/angular';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { defaultAddons } from '<%= offsetFromRoot %>libs/shared/frontend/storybook/src';
+
+const config: StorybookConfig = {
+	stories: [{ directory: '../src/lib', titlePrefix: '<%= domain %>-<%= projectName %>', files: '**/*.stories.*' }],
+	addons: [...defaultAddons],
+	framework: {
+		name: '@storybook/angular',
+		options: {},
+	},
+	staticDirs: [],
+	docs: {
+		autodocs: true,
+	},
+	previewBody: (body) => `
+		<style>body { overflow: auto; }</style>
+		${body}
+	`,
+};
+
+export default config;

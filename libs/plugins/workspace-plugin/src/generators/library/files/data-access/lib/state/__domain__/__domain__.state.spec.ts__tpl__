@@ -1,0 +1,22 @@
+import { TestBed } from '@angular/core/testing';
+import { NgxsFormPluginModule } from '@ngxs/form-plugin';
+import { NgxsModule, Store } from '@ngxs/store';
+import { <%= normalizedDomain %>State } from './<%= domain %>.state';
+
+describe('<%= normalizedDomain %>State - Actions', () => {
+	let store: Store;
+
+	beforeEach(() => {
+				TestBed.configureTestingModule({
+			imports: [NgxsModule.forRoot([<%= normalizedDomain %>State], { developmentMode: true }), NgxsFormPluginModule.forRoot()],
+			providers: [			],
+		});
+
+		store = TestBed.inject(Store);
+	});
+
+	describe('load data', () => {
+	});
+
+	
+});

@@ -1,0 +1,26 @@
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { PromptDirectiveModule } from '@exclaimer/common/directives';
+import { ButtonModule } from '@exclaimer/ui/button';
+import { FeatureModule } from '@exclaimer/ui/feature';
+import { LinkModule } from '@exclaimer/ui/link';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgxsFormPluginModule } from '@ngxs/form-plugin';
+import { <%= componentName %>Component } from './<%= fileName %>.component';
+
+@NgModule({
+	declarations: [<%= componentName %>Component],
+	imports: [
+		TranslateModule,
+		NgxsFormPluginModule,
+		ReactiveFormsModule,
+		CommonModule,
+		ButtonModule,
+		FeatureModule,
+		LinkModule,
+		PromptDirectiveModule
+	],
+	exports: [<%= componentName %>Component],
+})
+export class <%= componentName %>Module {}

@@ -1,0 +1,3 @@
+describe('<%= normalizedDomain %>Selectors', () => {
+	describe('state selectors', () => {});
+});

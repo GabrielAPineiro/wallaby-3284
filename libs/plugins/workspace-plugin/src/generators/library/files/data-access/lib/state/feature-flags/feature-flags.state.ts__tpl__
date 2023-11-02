@@ -1,0 +1,29 @@
+import { Injectable } from '@angular/core';
+import { FeatureFlagsService } from '@exclaimer/signature-tester/api-client';
+import type { StateContext } from '@ngxs/store';
+import { Action, State, StateToken } from '@ngxs/store';
+import { patch } from '@ngxs/store/operators';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { defaultFeatureFlagsState, FeatureFlagsStateModel, FeatureFlagsType } from './feature-flags';
+import { LoadFeatureFlags } from './feature-flags.actions';
+
+export const FEATURE_FLAGS_STATE_TOKEN = new StateToken<FeatureFlagsStateModel>('<%= camelCaseDomain %>FeatureFlags');
+
+@State({
+	name: FEATURE_FLAGS_STATE_TOKEN,
+	defaults: defaultFeatureFlagsState,
+})
+@Injectable()
+export class FeatureFlagsState {
+	public constructor(private ffService: FeatureFlagsService) {}
+
+	@Action(LoadFeatureFlags)
+	public loadFeatureFlags({ setState }: StateContext<FeatureFlagsStateModel>): Observable<FeatureFlagsType> {
+		return this.ffService.getFeatureFlags().pipe(
+			tap((featureFlags: FeatureFlagsType) => {
+				setState(patch({ ...featureFlags }));
+			}),
+		);
+	}
+}

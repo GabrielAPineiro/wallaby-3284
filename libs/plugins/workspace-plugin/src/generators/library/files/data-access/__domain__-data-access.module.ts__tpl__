@@ -1,0 +1,11 @@
+import { NgModule } from '@angular/core';
+import { NgxsModule } from '@ngxs/store';
+import { FeatureFlagsFacade, FeatureFlagsResolver, FeatureFlagsState, <%= normalizedDomain %>Facade, <%= normalizedDomain %>State } from './lib';
+
+@NgModule({
+	imports: [
+		NgxsModule.forFeature([FeatureFlagsState, <%= normalizedDomain %>State]),
+	],
+	providers: [FeatureFlagsFacade, FeatureFlagsResolver, <%= normalizedDomain %>Facade],
+})
+export class <%= normalizedDomain %>DataAccessModule {}

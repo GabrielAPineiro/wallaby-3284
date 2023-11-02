@@ -1,0 +1,45 @@
+{
+	"$schema": "http://json-schema.org/schema",
+	"$id": "ComponentGenerator",
+	"title": "Generate a new Component",
+	"type": "object",
+	"properties": {
+		"name": {
+			"type": "string",
+			"description": "Name of the component",
+			"$default": {
+				"$source": "argv",
+				"index": 0
+			},
+			"x-prompt": "What name would you like to use for the file system?"
+		},
+		"domain": {
+			"type": "string",
+			"description": "Domain/Prefix of the component",
+			"$default": {
+				"$source": "argv",
+				"index": 0
+			},
+			"x-prompt": "What should be the prefix for the component?"
+		},
+		"project": {
+			"type": "string",
+			"description": "e.g. visual-trial-ui",
+			"x-dropdown": "projects",
+			"x-prompt": "What project?"
+		},
+		"includeStories": {
+			"type": "boolean",
+			"description": "Should include stories file",
+			"default": false,
+			"x-prompt": "Include stories file?"
+		},
+		"includeHarness": {
+			"type": "boolean",
+			"description": "Should include test harness",
+			"default": false,
+			"x-prompt": "Include test harness?"
+		}
+	},
+	"required": ["name", "domain", "project"]
+}

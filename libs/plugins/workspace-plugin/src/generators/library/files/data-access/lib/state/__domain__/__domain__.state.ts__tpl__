@@ -1,0 +1,13 @@
+import { Injectable } from '@angular/core';
+import { State } from '@ngxs/store';
+import { <%= normalizedDomain %>StateModel, <%= uppercaseDomain %>_STATE_TOKEN } from './<%= domain %>.types';
+
+const defaultState: <%= normalizedDomain %>StateModel = {};
+
+@State({
+	name: <%= uppercaseDomain %>_STATE_TOKEN,
+	defaults: defaultState,
+})
+@Injectable()
+export class <%= normalizedDomain %>State {
+}

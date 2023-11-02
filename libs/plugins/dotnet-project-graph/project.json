@@ -1,0 +1,26 @@
+{
+	"name": "plugins-dotnet-project-graph",
+	"$schema": "../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/plugins/dotnet-project-graph/src",
+	"projectType": "library",
+	"targets": {
+		"build": {
+			"executor": "@nx/js:tsc",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"outputPath": "dist/libs/plugins/dotnet-project-graph",
+				"main": "libs/plugins/dotnet-project-graph/src/index.ts",
+				"tsConfig": "libs/plugins/dotnet-project-graph/tsconfig.lib.json",
+				"assets": ["libs/plugins/dotnet-project-graph/*.md"]
+			}
+		},
+		"lint": {
+			"executor": "@nx/linter:eslint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": ["libs/plugins/dotnet-project-graph/**/*.ts"]
+			}
+		}
+	},
+	"tags": []
+}

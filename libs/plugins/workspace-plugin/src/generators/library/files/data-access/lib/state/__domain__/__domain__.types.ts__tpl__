@@ -1,0 +1,6 @@
+import { StateToken } from '@ngxs/store';
+
+export interface <%= normalizedDomain %>StateModel {
+}
+
+export const <%= uppercaseDomain %>_STATE_TOKEN = new StateToken<<%= normalizedDomain %>StateModel>('<%= domain %>');

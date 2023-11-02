@@ -1,0 +1,36 @@
+import { HttpEvent } from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
+import { asyncData } from '@exclaimer/common/testing';
+import { FeatureFlagsService } from '@exclaimer/signature-tester/api-client';
+import { NgxsModule, Store } from '@ngxs/store';
+import { firstValueFrom } from 'rxjs';
+import { LoadFeatureFlags } from './feature-flags.actions';
+import { FeatureFlagsState, FEATURE_FLAGS_STATE_TOKEN } from './feature-flags.state';
+
+describe('FeatureFlagsState - Actions', () => {
+	let store: Store;
+	let ffServiceSpy: jasmine.SpyObj<FeatureFlagsService>;
+
+	beforeEach(() => {
+		ffServiceSpy = jasmine.createSpyObj('FeatureFlagsService', ['getFeatureFlags']);
+
+		TestBed.configureTestingModule({
+			imports: [NgxsModule.forRoot([FeatureFlagsState], { developmentMode: true })],
+			providers: [{ provide: FeatureFlagsService, useValue: ffServiceSpy }],
+		});
+		store = TestBed.inject(Store);
+	});
+
+	it('LoadFeatureFlags should update state correctly', async () => {
+		store.reset({
+			...store.snapshot(),
+			featureFlags: { ...store.selectSnapshot(FEATURE_FLAGS_STATE_TOKEN), newSignatureTester: false },
+		});
+
+		const data = { newSignatureTester: true };
+		ffServiceSpy.getFeatureFlags.and.returnValue(asyncData(data as unknown as HttpEvent<{ [key: string]: boolean }>));
+		await firstValueFrom(store.dispatch(new LoadFeatureFlags()));
+
+		expect(ffServiceSpy.getFeatureFlags).toHaveBeenCalledTimes(1);
+	});
+});

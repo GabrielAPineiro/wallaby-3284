@@ -1,0 +1,20 @@
+{
+	"$schema": "http://json-schema.org/schema",
+	"executors": {
+		"build": {
+			"implementation": "./src/executors/build/executor",
+			"schema": "./src/executors/build/schema.json",
+			"description": "build executor"
+		},
+		"poeditor-export": {
+			"implementation": "./src/executors/poeditor/export/executor",
+			"schema": "./src/executors/poeditor/export/schema.json",
+			"description": "poeditor export executor"
+		},
+		"poeditor-import": {
+			"implementation": "./src/executors/poeditor/import/executor",
+			"schema": "./src/executors/poeditor/import/schema.json",
+			"description": "poeditor import executor"
+		}
+	}
+}

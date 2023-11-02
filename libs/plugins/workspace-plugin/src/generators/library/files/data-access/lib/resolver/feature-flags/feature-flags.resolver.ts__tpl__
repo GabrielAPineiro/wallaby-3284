@@ -1,0 +1,12 @@
+import { Injectable } from '@angular/core';
+import { Resolve } from '@angular/router';
+import { Observable } from 'rxjs';
+import { FeatureFlagsFacade } from '../../state/feature-flags';
+
+@Injectable()
+export class FeatureFlagsResolver implements Resolve<Observable<unknown> | Promise<unknown>> {
+	public constructor(private ffFacade: FeatureFlagsFacade) {}
+	public resolve = (): Observable<unknown> | Promise<unknown> => {
+		return this.ffFacade.loadFeatureFlags();
+	};
+}

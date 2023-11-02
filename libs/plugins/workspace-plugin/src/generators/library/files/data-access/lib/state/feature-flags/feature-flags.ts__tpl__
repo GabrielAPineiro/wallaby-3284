@@ -1,0 +1,16 @@
+export enum FeatureFlags {}
+
+export type FeatureFlag = 'productionMode' | boolean;
+
+export type FeatureFlagsType = Record<string, FeatureFlag>;
+
+export type FeatureFlagsStateModel = Record<FeatureFlags, FeatureFlag>;
+
+export const defaultFeatureFlagsState: FeatureFlagsStateModel = {};
+
+export type FeatureFlagMode = 'isEnabled' | 'isDisabled';
+
+export const FeatureFlagMode = {
+	IsEnabled: 'isEnabled' as FeatureFlagMode,
+	IsDisabled: 'isDisabled' as FeatureFlagMode,
+};

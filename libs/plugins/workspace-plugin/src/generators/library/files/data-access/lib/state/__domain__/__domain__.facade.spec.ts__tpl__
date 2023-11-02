@@ -1,0 +1,24 @@
+import { TestBed } from '@angular/core/testing';
+import { Store } from '@ngxs/store';
+import { <%= normalizedDomain %>Facade } from './<%= domain %>.facade';
+import { <%= normalizedDomain %>Selectors } from './<%= domain %>.selectors';
+
+describe('<%= normalizedDomain %>Facade', () => {
+	let facade: <%= normalizedDomain %>Facade;
+
+	let storeSpy: jasmine.SpyObj<Store>;
+
+	beforeEach(() => {
+		storeSpy = jasmine.createSpyObj('Store', ['dispatch', 'select', 'selectSnapshot']);
+
+		TestBed.configureTestingModule({
+			providers: [<%= normalizedDomain %>Facade, { provide: Store, useValue: storeSpy }],
+		});
+
+		facade = TestBed.inject(<%= normalizedDomain %>Facade);
+	});
+
+	describe('dispatch', () => {});
+
+	describe('select', () => {});
+});

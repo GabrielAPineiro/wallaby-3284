@@ -1,0 +1,22 @@
+<excl-feature [title]="i18n.title | translate" [subTitle]="i18n.subtitle | translate" [exclPrompt]="formDirty" iconName="question">
+	<excl-feature-header-info>
+		<excl-link
+			data-testid="help-link"
+			iconName="question-circle"
+			[label]="i18n.help_link | translate"
+			[underlined]="false"
+			[url]="helpLink"
+		></excl-link>
+	</excl-feature-header-info>
+	<excl-feature-content>
+		<form [formGroup]="formGroup" ngxsForm="tenantConfig.<%= noSpecialChars(name) %>.form" form="<%= noSpecialChars(name) %>Form">
+			<excl-button
+				button="save-<%= name %>"
+				styleClass="primary"
+				[label]="i18nKeys.common_buttons.save | translate"
+				[disabled]="!formDirty"
+				(onClick)="saveForm()"
+			></excl-button>
+		</form>
+	</excl-feature-content>
+</excl-feature>

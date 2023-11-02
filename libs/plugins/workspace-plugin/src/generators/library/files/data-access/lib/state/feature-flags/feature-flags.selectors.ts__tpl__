@@ -1,0 +1,30 @@
+import { createSelector, Selector } from '@ngxs/store';
+import type { FeatureFlagsStateModel } from './feature-flags';
+import { FeatureFlag, FeatureFlags } from './feature-flags';
+import { FeatureFlagsState, FEATURE_FLAGS_STATE_TOKEN } from './feature-flags.state';
+
+export class FeatureFlagsSelectors {
+	@Selector([FEATURE_FLAGS_STATE_TOKEN])
+	public static featureFlags(state: FeatureFlagsStateModel): FeatureFlagsStateModel {
+		return state;
+	}
+
+	public static isEnabled(featureFlag: FeatureFlags): (state: FeatureFlagsStateModel, production: boolean) => boolean {
+		return createEnabledDisabledSelector(featureFlag, true);
+	}
+
+	public static isDisabled(featureFlag: FeatureFlags): (state: FeatureFlagsStateModel, production: boolean) => boolean {
+		return createEnabledDisabledSelector(featureFlag, false);
+	}
+}
+
+const isFlagEnabled = (flag: FeatureFlag, production: boolean): boolean => (flag === 'productionMode' ? !production : flag);
+
+const createEnabledDisabledSelector = (
+	featureFlag: FeatureFlags,
+	enabledSelector: boolean,
+): ((state: FeatureFlagsStateModel, production: boolean) => boolean) =>
+	createSelector([FeatureFlagsState], (state: FeatureFlagsStateModel, production: boolean) => {
+		const flagEnabled = isFlagEnabled(state[featureFlag], production);
+		return enabledSelector ? flagEnabled : !flagEnabled;
+	});

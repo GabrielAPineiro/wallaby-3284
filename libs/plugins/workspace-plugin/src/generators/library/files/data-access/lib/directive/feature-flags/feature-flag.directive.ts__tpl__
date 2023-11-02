@@ -1,0 +1,13 @@
+import { Directive, TemplateRef, ViewContainerRef } from '@angular/core';
+import { FeatureFlagDirectiveImpl } from '@exclaimer/shared/common';
+import { FeatureFlags, FeatureFlagsFacade } from '../../state/feature-flags';
+
+@Directive({
+	// eslint-disable-next-line @angular-eslint/directive-selector
+	selector: '[<%= featureFlagDomain %>]',
+})
+export class FeatureFlagDirective extends FeatureFlagDirectiveImpl<FeatureFlags> {
+	public constructor(templateRef: TemplateRef<unknown>, viewContainer: ViewContainerRef, ffFacade: FeatureFlagsFacade) {
+		super(templateRef, viewContainer, ffFacade);
+	}
+}

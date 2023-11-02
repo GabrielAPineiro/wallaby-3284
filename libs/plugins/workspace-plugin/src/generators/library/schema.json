@@ -1,0 +1,152 @@
+{
+	"$schema": "http://json-schema.org/schema",
+	"$id": "WorkspaceLibraryGenerator",
+	"title": "Generate new library",
+	"type": "object",
+	"properties": {
+		"domain": {
+			"type": "string",
+			"description": "Provide the domain",
+			"enum": [
+				"configuration",
+				"crm-integration",
+				"diagnostic-logs",
+				"signature-analytics",
+				"signature-designer",
+				"signature-management",
+				"signature-rules",
+				"signature-tester",
+				"user-details-editor",
+				"visual-trial",
+				"social-feeds",
+				"shared"
+			],
+			"x-prompt": {
+				"message": "Which domain would you like to generate a library for?",
+				"type": "list",
+				"items": [
+					{
+						"value": "configuration",
+						"label": "Configuration"
+					},
+					{
+						"value": "crm-integration",
+						"label": "CRM Integration"
+					},
+					{
+						"value": "diagnostic-logs",
+						"label": "Diagnostic Logs"
+					},
+					{
+						"value": "signature-analytics",
+						"label": "Signature Analytics"
+					},
+					{
+						"value": "signature-designer",
+						"label": "Signature Designer"
+					},
+					{
+						"value": "signature-management",
+						"label": "Signature Management"
+					},
+					{
+						"value": "signature-rules",
+						"label": "Signature Rules"
+					},
+					{
+						"value": "signature-tester",
+						"label": "Signature Tester"
+					},
+					{
+						"value": "user-details-editor",
+						"label": "User Details Editor"
+					},
+					{
+						"value": "visual-trial",
+						"label": "Visual Trial"
+					},
+					{
+						"value": "social-feeds",
+						"label": "Social Feeds"
+					},
+					{
+						"value": "shared",
+						"label": "Shared"
+					}
+				]
+			}
+		},
+		"type": {
+			"type": "string",
+			"description": "Provide the library type",
+			"enum": [
+				"frontend-data-access",
+				"frontend-feature",
+				"frontend-i18n",
+				"frontend-ui",
+				"frontend-main",
+				"frontend-empty",
+				"backend-class-library",
+				"test-page-objects"
+			],
+			"x-prompt": {
+				"message": "Which type of library would you like to generate?",
+				"type": "list",
+				"items": [
+					{
+						"value": "frontend-data-access",
+						"label": "Data Access   [frontend]"
+					},
+					{
+						"value": "frontend-feature",
+						"label": "Feature       [frontend]"
+					},
+					{
+						"value": "frontend-i18n",
+						"label": "I18n          [frontend]"
+					},
+					{
+						"value": "frontend-ui",
+						"label": "UI            [frontend]"
+					},
+					{
+						"value": "frontend-main",
+						"label": "Main          [frontend]"
+					},
+					{
+						"value": "frontend-empty",
+						"label": "Empty         [frontend]"
+					},
+					{
+						"value": "backend-class-library",
+						"label": "Class Library [backend]"
+					},
+					{
+						"value": "test-page-objects",
+						"label": "Page Objects  [test]"
+					}
+				]
+			}
+		},
+		"name": {
+			"type": "string",
+			"description": "Library name",
+			"x-prompt": "What name would you like to use for the library? (optional)"
+		},
+		"subdomain": {
+			"type": "string",
+			"description": "Provide the subdomain"
+		},
+		"dryRun": {
+			"type": "boolean",
+			"description": "Run through without making any changes.",
+			"default": false
+		},
+		"addStorybook": {
+			"type": "boolean",
+			"description": "If set to false will not add storybook to the generated library. If left true will only add storybook to supported libraries",
+			"default": true
+		}
+	},
+	"required": ["type", "domain"]
+}
